@@ -1,4 +1,5 @@
-version: '2'
+name: myapp
+
 services:
    mydbapp:
       build: ./web
@@ -11,8 +12,14 @@ services:
    db:
       build: ./db
       image: mydb:latest
+      environment:
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_USER: postgres
+        POSTGRES_DB: postgres
+        POSTGRES_HOST: db
       volumes:
         - db_data:/var/lib/postgresql/data
+        - ./db:/docker-entrypoint-initdb.d
       container_name: db
 
 volumes:
